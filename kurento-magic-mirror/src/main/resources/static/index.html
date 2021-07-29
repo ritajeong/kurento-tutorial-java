@@ -41,45 +41,45 @@
 			</div>
 		</div>
 	</header>
-	<div class="container">
-		<div class="page-header">
-			<h1>SSAFY Seoul Class 1, 7th Team Common Project, <strong>Focus</strong> Team - WebRTC</h1>
-			
-		</div>
-		<div class="row">
-			<div style="display: none;">
-				<h3>Local stream</h3>
-				<video id="videoInput" autoplay width="1600px" height="900px" poster="img/ssafy2.jpg"></video>
+	<div style="display: flex; justify-content: center;">
+		<div>
+			<div class="page-header">
+				<h1>SSAFY 서울 1반 7팀 공통 프로젝트(WebRTC) <strong>👨‍🏫Focus👩‍🏫</strong> </h1>
+				
 			</div>
-			<!-- <div class="col-md-5">
-				<h3>Local stream</h3>
-				<video id="videoInput" autoplay width="480px" height="360px"
-					poster="img/webrtc.png"></video>
-			</div> -->
-			<div class="col-8">
-				<h3>Presentation Screen</h3>
-				<video id="videoOutput" autoplay width="1600px" height="900px" poster="img/ssafy2.jpg"></video>
+			<div class="row">
+				<div style="display: none;">
+					<video id="videoInput" autoplay width="1280px" height="720px" poster="img/ssafy2.jpg"></video>
+				</div>
+				<!-- <div class="col-md-5">
+					<h3>Local stream</h3>
+					<video id="videoInput" autoplay width="480px" height="360px"
+						poster="img/webrtc.png"></video>
+				</div> -->
+				<div class="col-8">
+					<video id="videoOutput" autoplay width="1280px" height="720px" poster="img/ssafy2.jpg"></video>
+				</div>
 			</div>
-		</div>
-		<br/>
-		<div class="row">
-			<div class="col-3"></div>
-			<div class="col">
-				<a id="start" href="#" class="btn btn-success" onclick="start(); return false;"> Start</a>
+			<br/>
+			<div class="row">
+				<div class="col-3"></div>
+				<div class="col">
+					<a id="start" href="#" class="btn btn-success" onclick="start(); return false;"> Start</a>
+				</div>
+				<div class="col">
+					<a id="stop" href="#" class="btn btn-danger" onclick="stop(); return false;"> Stop</a>
+				</div>
+				<div class="col">
+					<a id="prev" href="#" class="btn btn-info" onclick="prev(); return false;"> Prev</a>
+				</div>
+				<div class="col">
+					<a id="next" href="#" class="btn btn-warning" onclick="next(); return false;"> Next</a>
+				</div>
+				<div class="col">
+					<a id="fullScreen" href="#" class="btn btn-outline-secondary" onclick="fullScreen(); return false;"> Full</a>
+				</div>
+				<div class="col-3"></div>
 			</div>
-			<div class="col">
-				<a id="stop" href="#" class="btn btn-danger" onclick="stop(); return false;"> Stop</a>
-			</div>
-			<div class="col">
-				<a id="prev" href="#" class="btn btn-info" onclick="prev(); return false;"> Prev</a>
-			</div>
-			<div class="col">
-				<a id="next" href="#" class="btn btn-warning" onclick="next(); return false;"> Next</a>
-			</div>
-			<div class="col">
-				<a id="fullScreen" href="#" class="btn btn-outline-secondary" onclick="fullScreen(); return false;"> Full</a>
-			</div>
-			<div class="col-3"></div>
 		</div>
 	</div>
 </body>
