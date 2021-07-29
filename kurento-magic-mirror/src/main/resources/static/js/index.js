@@ -20,13 +20,14 @@ var videoInput;
 var videoOutput;
 var webRtcPeer;
 var state = null;
+var isFullScreen = false;
 
 const I_CAN_START = 0;
 const I_CAN_STOP = 1;
 const I_AM_STARTING = 2;
 
 window.onload = function() {
-	console = new Console();
+	// console = new Console();
 	console.log("Page loaded ...");
 	videoInput = document.getElementById('videoInput');
 	videoOutput = document.getElementById('videoOutput');
@@ -87,6 +88,24 @@ function start() {
 				}
 				webRtcPeer.generateOffer(onOffer);
 			});
+}
+
+function prev(){
+console.log("prev image")
+var message = {
+			id : 'prev'
+		}
+		sendMessage(message);
+
+}
+
+function next(){
+console.log("next image")
+var message = {
+			id : 'next'
+		}
+		sendMessage(message);
+
 }
 
 function onOffer(error, offerSdp) {
@@ -184,7 +203,7 @@ function showSpinner() {
 function hideSpinner() {
 	for (var i = 0; i < arguments.length; i++) {
 		arguments[i].src = '';
-		arguments[i].poster = './img/webrtc.png';
+		arguments[i].poster = './img/ssafy2.jpg';
 		arguments[i].style.background = '';
 	}
 }
@@ -195,3 +214,23 @@ $(document).delegate('*[data-toggle="lightbox"]', 'click', function(event) {
 	event.preventDefault();
 	$(this).ekkoLightbox();
 });
+
+function fullScreen(){
+	console.log("fullScreen")
+	isFullScreen = !isFullScreen;
+	if(isFullScreen) {
+		// document.getElementById('fullScreen').classList.remove('btn-outline-secondary');
+		// document.getElementById('fullScreen').classList.add('btn-secondary');
+		$('#fullScreen').removeClass("btn-outline-secondary");
+		$('#fullScreen').addClass("btn-secondary");
+	} else {
+		// document.getElementById('fullScreen').classList.remove('btn-secondary');
+		// document.getElementById('fullScreen').classList.add('btn-outline-secondary');
+		$('#fullScreen').removeClass("btn-secondary");
+		$('#fullScreen').addClass("btn-outline-secondary");
+	}
+	var message = {
+		id : 'fullScreen'
+	}
+	sendMessage(message);
+}
