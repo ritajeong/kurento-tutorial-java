@@ -1,6 +1,6 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
-		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-		xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
 	<!-- Maven coordinates -->
@@ -36,11 +36,8 @@
 
 		<!-- Development -->
 		<!-- Do "mvn compile" to trigger the automatic application restart -->
-		<!-- <dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-devtools</artifactId>
-			<optional>true</optional>
-		</dependency> -->
+		<!-- <dependency> <groupId>org.springframework.boot</groupId> <artifactId>spring-boot-devtools</artifactId> 
+			<optional>true</optional> </dependency> -->
 
 		<!-- WebJars -->
 		<dependency>
@@ -79,6 +76,7 @@
 		</dependency>
 	</dependencies>
 
+
 	<build>
 		<plugins>
 			<plugin>
@@ -87,12 +85,94 @@
 				<configuration>
 
 					<!-- Development -->
-					<!-- <addResources>false</addResources>
-					<folders>
-						<folder>src/main/resources</folder>
-					</folders> -->
+					<!-- <addResources>false</addResources> <folders> <folder>src/main/resources</folder> 
+						</folders> -->
 
 				</configuration>
+			</plugin>
+			<plugin> <!-- vue, npm build 추가 -->
+				<groupId>org.codehaus.mojo</groupId> <!-- 명령어를 실행 시키도록 해주는 plugin -->
+				<artifactId>exec-maven-plugin</artifactId>
+				<version>1.6.0</version>
+				<executions>
+					<!-- npm install -->
+					<execution>
+						<id>frontend install</id>
+						<goals>
+							<goal>exec</goal>
+						</goals>
+						<phase>prepare-package</phase>
+						<configuration>
+							<executable>npm</executable>
+							<arguments>
+								<argument>install</argument>
+							</arguments>
+						</configuration>
+					</execution>
+					<!-- npm run build -->
+					<execution>
+						<id>frontend build package</id>
+						<goals>
+							<goal>exec</goal>
+						</goals>
+						<phase>prepare-package</phase>
+						<configuration>
+							<executable>npm</executable>
+							<arguments>
+								<argument>run</argument>
+								<argument>build</argument>
+							</arguments>
+						</configuration>
+					</execution>
+				</executions>
+				<configuration>
+					<workingDirectory>${basedir}/frontend</workingDirectory>
+				</configuration>
+			</plugin>
+			<plugin><!-- FE 빌드파일을 spring으로 -->
+				<artifactId>maven-resources-plugin</artifactId>
+				<version>3.1.0</version>
+				<executions>
+					<!-- disc 폴더 에서 html 파일을 /src/main/resources/templates 로 이동 --> 
+					<execution>
+						<id>copy frontend template</id>
+						<goals>
+							<goal>copy-resources</goal>
+						</goals>
+						<phase>prepare-package</phase>
+						<configuration>
+							<outputDirectory>${basedir}/src/main/resources/templates</outputDirectory>
+							<resources>
+								<resource>
+									<directory>frontend/dist</directory>
+									<includes>
+										<include>index.html</include>
+									</includes>
+								</resource>
+							</resources>
+						</configuration>
+					</execution>
+					<!-- disc 폴더 에서 html 파일을 제외하고 /src/main/resources/static 폴더로 이동 -->
+					<!-- disc 폴더 에서 html 파일을 제외하고 /src/main/resources/dist 폴더로 이동 -->
+					<execution>
+						<id>copy frontend static assets</id>
+						<goals>
+							<goal>copy-resources</goal>
+						</goals>
+						<phase>prepare-package</phase>
+						<configuration>
+							<outputDirectory>${basedir}/src/main/resources/dist</outputDirectory>
+							<resources>
+								<resource>
+									<directory>frontend/dist</directory>
+									<excludes>
+										<exclude>index.html</exclude>
+									</excludes>
+								</resource>
+							</resources>
+						</configuration>
+					</execution>
+				</executions>
 			</plugin>
 		</plugins>
 
