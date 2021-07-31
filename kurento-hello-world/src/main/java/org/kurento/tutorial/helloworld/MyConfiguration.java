@@ -15,18 +15,18 @@ public class MyConfiguration implements WebMvcConfigurer {
     
     	// js, css, img파일들에 대해서 dist와 static 파일을 참조한다.
         registry.addResourceHandler(
-                "/js/**",
+        		"/js/**",
                 "/css/**",
                 "/img/**"
-        )
-                .addResourceLocations(
-                        "classpath:/dist/js/",
-                        "classpath:/dist/css/",
-                        "classpath:/dist/img/",
-                        "classpath:/static/js/",
-                        "classpath:/static/css/",
-                        "classpath:/static/img/"
                 )
+		        .addResourceLocations(
+		                "classpath:/dist/js/",
+		                "classpath:/dist/css/",
+		                "classpath:/dist/img/",
+		                "classpath:/static/js/",
+		                "classpath:/static/css/",
+		                "classpath:/static/img/"
+		        )
                 .setCacheControl(CacheControl.maxAge(10, TimeUnit.MINUTES));
     }
 }

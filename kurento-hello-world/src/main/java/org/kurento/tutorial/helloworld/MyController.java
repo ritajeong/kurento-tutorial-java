@@ -5,14 +5,16 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class MyController { 
-//    @GetMapping({"/", "/error"})
-//    public String index() {
-//        return "index";
-//    }
+    @GetMapping("/index")
+    public String index() {
+    	System.out.println("controller-index");
+        return "index.html";
+    }
 
 
     @GetMapping("/vue")
-    public String join() {
+    public String vue() {
+    	System.out.println("controller-vue");
         return "vue";
     }
 }

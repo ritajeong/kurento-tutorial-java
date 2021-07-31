@@ -133,7 +133,7 @@
 				<artifactId>maven-resources-plugin</artifactId>
 				<version>3.1.0</version>
 				<executions>
-					<!-- disc 폴더 에서 html 파일을 /src/main/resources/templates 로 이동 --> 
+					<!-- dist 폴더 에서 html 파일을 /src/main/resources/templates 로 이동 --> 
 					<execution>
 						<id>copy frontend template</id>
 						<goals>
@@ -152,7 +152,6 @@
 							</resources>
 						</configuration>
 					</execution>
-					<!-- disc 폴더 에서 html 파일을 제외하고 /src/main/resources/static 폴더로 이동 -->
 					<!-- disc 폴더 에서 html 파일을 제외하고 /src/main/resources/dist 폴더로 이동 -->
 					<execution>
 						<id>copy frontend static assets</id>
