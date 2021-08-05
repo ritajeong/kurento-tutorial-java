@@ -1,20 +1,3 @@
-/*
- * (C) Copyright 2014 Kurento (http://kurento.org/)
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *   http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- *
- */
-
 package org.kurento.tutorial.groupcall;
 
 import java.io.Closeable;
@@ -73,15 +56,15 @@ public class Room implements Closeable {
     return participant;
   }
 
-  public void leave(UserSession user) throws IOException {
+  public void leave(UserSession user) throws IOException { // 3-5 KMS에서 release되도록 처리. leave()
     log.debug("PARTICIPANT {}: Leaving room {}", user.getName(), this.name);
-    this.removeParticipant(user.getName());
+    this.removeParticipant(user.getName()); // 3-6 KMS에서 release되도록 처리. leave()
     user.close();
   }
 
   private Collection<String> joinRoom(UserSession newParticipant) throws IOException {
     final JsonObject newParticipantMsg = new JsonObject();
-    newParticipantMsg.addProperty("id", "newParticipantArrived");
+    newParticipantMsg.addProperty("id", "newParticipantArrived"); // 1-7 유저세션 생성이후, 기존 참여자들에게는 새로 추가된 참여자에 대한 정보메시지를 전달
     newParticipantMsg.addProperty("name", newParticipant.getName());
 
     final List<String> participantsList = new ArrayList<>(participants.values().size());
@@ -90,7 +73,7 @@ public class Room implements Closeable {
 
     for (final UserSession participant : participants.values()) {
       try {
-        participant.sendMessage(newParticipantMsg);
+        participant.sendMessage(newParticipantMsg); //1-8 정보메시지 전달 -> FE
       } catch (final IOException e) {
         log.debug("ROOM {}: participant {} could not be notified", name, participant.getName(), e);
       }
@@ -100,8 +83,8 @@ public class Room implements Closeable {
     return participantsList;
   }
 
-  private void removeParticipant(String name) throws IOException {
-    participants.remove(name);
+  private void removeParticipant(String name) throws IOException { // 3-6 다른 참여자에게 participantLeft 메시지 전달
+    participants.remove(name); 
 
     log.debug("ROOM {}: notifying all users that {} is leaving the room", this.name, name);
 
